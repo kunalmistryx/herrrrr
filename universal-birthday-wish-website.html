@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#120b12">
+<title>A Little Birthday Surprise ✨</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
+
+:root{
+  --bg:#0b080c;--bg2:#17101a;--paper:#fff8fb;--ink:#291923;--muted:#8b7180;
+  --pink:#ff86b4;--rose:#d94f82;--lav:#a98cff;--white:#fff;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:white;font-family:"DM Sans",sans-serif;overflow-x:hidden}
+button,a{font:inherit}a{text-decoration:none;color:inherit}
+.hidden{display:none!important}
+::selection{background:var(--pink);color:#160b12}
+
+/* INTRO */
+#intro{position:fixed;inset:0;z-index:100;display:grid;place-items:center;overflow:hidden;
+background:radial-gradient(circle at 50% 48%,#4c2036 0,#1b0e17 36%,#08070a 78%)}
+.intro-glow{position:absolute;width:42vw;height:42vw;min-width:260px;min-height:260px;
+background:linear-gradient(135deg,var(--pink),var(--lav));filter:blur(2px);opacity:.85;
+box-shadow:0 0 180px #ff6fa844;animation:morph 8s ease-in-out infinite}
+.intro-glow:after{content:"";position:absolute;inset:-18%;border:1px solid #fff3;border-radius:inherit;animation:spin 18s linear infinite}
+.intro-content{position:relative;z-index:2;text-align:center;padding:24px}
+.eyebrow{text-transform:uppercase;letter-spacing:.3em;font-size:10px;color:#e9b9cc}
+.intro h1{font:600 clamp(55px,10vw,125px)/.86 "Playfair Display",serif;letter-spacing:-.07em;margin:22px 0}
+.intro h1 span{color:transparent;-webkit-text-stroke:1px #fff}
+.intro p{max-width:500px;margin:0 auto 30px;color:#d2bec8;line-height:1.7}
+.open{border:0;border-radius:999px;padding:15px 25px;background:#fff;color:#23131c;font-weight:700;cursor:pointer;
+transition:.35s;box-shadow:0 12px 55px #0007}
+.open:hover{transform:translateY(-4px) scale(1.03);box-shadow:0 20px 75px #fff3}
+#intro.exit{animation:iris 1.15s cubic-bezier(.76,0,.24,1) forwards}
+@keyframes iris{0%{clip-path:circle(100% at 50% 50%);opacity:1}100%{clip-path:circle(0% at 50% 50%);opacity:0}}
+@keyframes morph{0%,100%{border-radius:50% 50% 50% 50%;transform:rotate(0) scale(1)}
+25%{border-radius:65% 35% 45% 55%;transform:rotate(25deg) scale(1.06)}
+50%{border-radius:35% 65% 60% 40%;transform:rotate(90deg) scale(.94)}
+75%{border-radius:58% 42% 32% 68%;transform:rotate(145deg) scale(1.04)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* NAV */
+#site{opacity:0;transition:opacity .8s}
+#site.ready{opacity:1}
+nav{position:fixed;z-index:40;top:16px;left:50%;transform:translateX(-50%);width:min(1080px,calc(100% - 28px));
+display:flex;justify-content:space-between;align-items:center;padding:11px 15px 11px 19px;border:1px solid #fff1;border-radius:999px;
+background:#0d090dcc;backdrop-filter:blur(18px);box-shadow:0 15px 50px #0005}
+.logo{font-weight:700}.logo span{color:var(--pink)}
+.links{display:flex;gap:4px}.links a{font-size:12px;color:#bcaeb6;padding:9px 13px;border-radius:999px;transition:.25s}
+.links a:hover{background:#fff10;color:#fff}
+.menu{display:none;border:0;background:none;color:#fff;font-size:20px}
+
+/* HERO */
+.hero{min-height:100svh;display:grid;place-items:center;text-align:center;position:relative;padding:120px 20px 70px;overflow:hidden}
+.hero:before{content:"";position:absolute;width:70vw;height:70vw;border-radius:50%;
+background:radial-gradient(circle,#d94f821c,transparent 60%);animation:pulse 7s ease-in-out infinite}
+.hero-grid{position:absolute;inset:-20%;opacity:.18;background-image:linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px);
+background-size:80px 80px;mask-image:radial-gradient(circle,#000 0 18%,transparent 67%);transform:perspective(550px) rotateX(62deg) scale(1.6);transform-origin:center bottom}
+.hero-inner{position:relative;max-width:1000px}
+.hero h2{font:600 clamp(65px,13vw,165px)/.79 "Playfair Display",serif;letter-spacing:-.085em;margin:18px 0}
+.hero h2 span{display:block;color:var(--pink)}
+.hero p{max-width:650px;margin:32px auto;color:#bcb0b7;line-height:1.8;font-size:16px}
+.cta{display:inline-flex;gap:10px;align-items:center;border-radius:999px;background:#fff;color:#180d14;padding:15px 20px;font-weight:700;transition:.35s}
+.cta:hover{transform:translateY(-4px);box-shadow:0 20px 70px #ff7aa82a}
+.arrow{transition:.35s}.cta:hover .arrow{transform:translateX(5px)}
+.scroll{margin-top:65px;font-size:10px;letter-spacing:.25em;color:#776d75;text-transform:uppercase}
+.scroll b{display:block;font-size:20px;margin-top:9px;animation:bounce 1.7s infinite}
+@keyframes pulse{50%{transform:scale(1.12);opacity:.65}}@keyframes bounce{50%{transform:translateY(7px)}}
+
+/* SECTIONS */
+section{padding:120px 6vw}
+.light{background:var(--paper);color:var(--ink)}
+.section-head{max-width:760px;margin:0 auto 55px;text-align:center}
+.section-head .eyebrow{color:var(--rose)}
+.section-head h3{font:600 clamp(42px,7vw,80px)/.95 "Playfair Display",serif;letter-spacing:-.055em;margin:15px 0}
+.section-head p{color:var(--muted);line-height:1.8;margin:0}
+
+/* MESSAGE */
+.letter{max-width:850px;margin:auto;background:#fff;border:1px solid #efdce5;border-radius:34px;padding:clamp(28px,6vw,65px);
+box-shadow:0 30px 100px #8c416317;position:relative;overflow:hidden}
+.letter:before{content:"“";position:absolute;right:25px;top:-35px;font:180px "Playfair Display",serif;color:#ff86b418}
+.letter p{font:19px/1.9 "Playfair Display",serif;color:#513642;margin:0 0 18px}
+.letter .big{font-size:26px;color:#9e3e62}
+.signature{margin-top:30px;color:#b54b72;font:24px "Playfair Display",serif}
+
+/* MEMORY CARDS */
+.cards{max-width:1100px;margin:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:17px}
+.card{min-height:270px;padding:28px;border:1px solid #eedce4;border-radius:28px;background:#fff;position:relative;overflow:hidden;
+transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .4s}
+.card:before{content:"";position:absolute;width:180px;height:180px;border-radius:50%;background:#ff86b4;filter:blur(70px);opacity:0;right:-80px;top:-80px;transition:.5s}
+.card:hover{transform:translateY(-9px);box-shadow:0 25px 70px #7b2e4c14}
+.card:hover:before{opacity:.2}
+.card small{color:#b14c70;font-weight:700;letter-spacing:.16em}
+.card .emoji{font-size:34px;margin:42px 0 16px}.card h4{margin:0 0 9px;font-size:22px}.card p{margin:0;color:#806873;font-size:14px;line-height:1.7}
+
+/* WISHES */
+.wishes{max-width:800px;margin:auto;border-left:2px solid #e7b6c7;padding-left:28px}
+.wish{position:relative;padding:24px 26px;margin-bottom:17px;border:1px solid #eedce4;border-radius:23px;background:#fff}
+.wish:before{content:"";position:absolute;width:11px;height:11px;border-radius:50%;background:var(--rose);left:-35px;top:29px;box-shadow:0 0 0 6px var(--paper)}
+.wish small{color:#b14c70;font-weight:700;letter-spacing:.15em}.wish h4{font:500 29px "Playfair Display",serif;margin:8px 0}.wish p{color:#806873;line-height:1.65;margin:0}
+
+/* SURPRISE */
+.surprise{max-width:850px;margin:auto;text-align:center}
+.gift{margin-top:30px;padding:55px 25px;border-radius:34px;background:linear-gradient(135deg,#321c2b,#1a1018);
+border:1px solid #fff1;cursor:pointer;position:relative;overflow:hidden;transition:.4s}
+.gift:hover{transform:translateY(-5px);box-shadow:0 25px 80px #35172555}
+.gift:before{content:"";position:absolute;width:250px;height:250px;border-radius:50%;background:var(--pink);filter:blur(100px);opacity:.15;left:50%;top:50%;transform:translate(-50%,-50%)}
+.gift>*{position:relative}
+.gift-icon{font-size:42px}.gift h4{font:500 clamp(30px,5vw,48px) "Playfair Display",serif;margin:15px 0 8px;color:#ffb3cc}
+.gift p{margin:0;color:#c9b8c0;font-size:13px}
+#secretMessage{display:none;margin-top:22px;font:500 25px/1.5 "Playfair Display",serif;color:#fff}
+.gift.revealed #secretMessage{display:block}
+
+/* FINAL */
+.final{min-height:82svh;background:#321c2b;color:#fff;display:grid;place-items:center;text-align:center;position:relative;overflow:hidden}
+.final:before{content:"";position:absolute;width:55vw;aspect-ratio:1;border-radius:50%;background:linear-gradient(135deg,#ff86b466,#a98cff55);filter:blur(80px);animation:morph 10s ease-in-out infinite}
+.final-inner{position:relative;max-width:850px}
+.final h3{font:600 clamp(55px,10vw,120px)/.82 "Playfair Display",serif;letter-spacing:-.07em;margin:20px 0}
+.final h3 span{color:#ff91b9}
+.final p{max-width:590px;margin:30px auto;color:#dbcbd2;line-height:1.8}
+.final .cta{background:#fff}
+
+/* SELLER WATERMARK */
+.custom-note{background:#321c2b;text-align:center;padding:0 20px 27px;color:#8f7481;font-size:9px;letter-spacing:.12em}
+.custom-note a{color:#dca0b7;text-decoration:underline;text-underline-offset:3px}
+footer{background:#321c2b;color:#725766;text-align:center;padding:18px;font-size:9px;letter-spacing:.12em}
+
+/* REVEAL + PARTICLES */
+.reveal{opacity:0;transform:translateY(55px) scale(.98);transition:opacity .9s ease,transform 1s cubic-bezier(.2,.8,.2,1)}
+.reveal.show{opacity:1;transform:none}
+.heart{position:fixed;pointer-events:none;z-index:60;font-size:20px;animation:rise 3.5s linear forwards}
+@keyframes rise{0%{transform:translateY(0) scale(.7);opacity:0}15%{opacity:1}100%{transform:translateY(-100vh) translateX(var(--x)) rotate(25deg) scale(1.3);opacity:0}}
+
+@media(max-width:760px){
+  nav{top:9px}.links{display:none}.menu{display:block}
+  .hero h2{letter-spacing:-.07em}.hero-grid{background-size:52px 52px}
+  section{padding:90px 20px}.cards{grid-template-columns:1fr}.card{min-height:225px}
+  .wishes{padding-left:23px}.wish:before{left:-30px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+
+<div id="intro">
+  <div class="intro-glow"></div>
+  <div class="intro-content">
+    <div class="eyebrow">A little birthday surprise</div>
+    <h1>For someone<br><span>very special.</span></h1>
+    <p>A tiny corner of the internet made just for her — because an ordinary birthday wish wasn't enough.</p>
+    <button class="open" id="open">Tap to open ♡</button>
+  </div>
+</div>
+
+<div id="site">
+<nav>
+  <a class="logo" href="#top">for <span>her</span> ♡</a>
+  <div class="links">
+    <a href="#letter">Message</a><a href="#memories">Memories</a><a href="#wishes">Wishes</a><a href="#surprise">Surprise</a>
+  </div>
+  <button class="menu" aria-label="Open menu">☰</button>
+</nav>
+
+<main id="top">
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-inner reveal">
+    <div class="eyebrow">[ DATE ] · [ HER NAME ]'S DAY</div>
+    <h2>Happy Birthday<br><span>beautiful.</span></h2>
+    <p>A whole little website for the person who makes ordinary days feel a little more special. Replace the words, add your own memories, and make it hers.</p>
+    <a class="cta" href="#letter">Open her story <span class="arrow">→</span></a>
+    <div class="scroll">keep scrolling <b>↓</b></div>
+  </div>
+</section>
+
+<section class="light" id="letter">
+  <div class="section-head reveal">
+    <div class="eyebrow">A message for you</div>
+    <h3>Some words from the heart.</h3>
+    <p>Personalize this section for every customer with their own message.</p>
+  </div>
+  <div class="letter reveal">
+    <p class="big">Happy birthday, [HER NAME]. ❤️</p>
+    <p>I hope today reminds you just how loved, appreciated and wonderfully unique you are.</p>
+    <p>May this new chapter bring you beautiful surprises, peaceful moments, loud laughter and everything you've been wishing for.</p>
+    <p>Keep being exactly who you are. The world is a little brighter with you in it.</p>
+    <div class="signature">With lots of love, [YOUR NAME] ♡</div>
+  </div>
+</section>
+
+<section class="light" id="memories">
+  <div class="section-head reveal">
+    <div class="eyebrow">Her little universe</div>
+    <h3>The things that make her, her.</h3>
+    <p>Three flexible cards — perfect for inside jokes, favourite qualities, memories, photos or tiny reasons you love her.</p>
+  </div>
+  <div class="cards">
+    <article class="card reveal"><small>01 · HER MAGIC</small><div class="emoji">✨</div><h4>That beautiful smile</h4><p>Write a personal line about the little thing she does that instantly makes your day better.</p></article>
+    <article class="card reveal"><small>02 · A MEMORY</small><div class="emoji">🫶</div><h4>That one unforgettable day</h4><p>Add an inside joke, a first meeting, a trip, a conversation or any moment that belongs only to you two.</p></article>
+    <article class="card reveal"><small>03 · JUST HER</small><div class="emoji">🌷</div><h4>The person she is</h4><p>Tell her what you admire most — her kindness, ambition, chaos, laugh, courage or anything else.</p></article>
+  </div>
+</section>
+
+<section class="light" id="wishes">
+  <div class="section-head reveal">
+    <div class="eyebrow">Three wishes</div>
+    <h3>If I could gift you anything...</h3>
+    <p>Simple, emotional and easy to personalize for every birthday order.</p>
+  </div>
+  <div class="wishes">
+    <article class="wish reveal"><small>01 · HAPPINESS</small><h4>More reasons to smile. 🌸</h4><p>May your days be filled with the kind of happiness that appears in the smallest moments.</p></article>
+    <article class="wish reveal"><small>02 · DREAMS</small><h4>Everything you're dreaming of. ✨</h4><p>May every goal you quietly carry find its way into your life at exactly the right time.</p></article>
+    <article class="wish reveal"><small>03 · LOVE</small><h4>Never forget how loved you are. ❤️</h4><p>On the best days and the difficult ones, I hope you always remember how much you mean to the people around you.</p></article>
+  </div>
+</section>
+
+<section class="light" id="surprise">
+  <div class="surprise">
+    <div class="section-head reveal">
+      <div class="eyebrow">One last surprise</div>
+      <h3>There is something hidden here...</h3>
+      <p>Make the final interaction your customer's personal secret message.</p>
+    </div>
+    <div class="gift reveal" id="gift">
+      <div class="gift-icon">🎁</div>
+      <h4>Tap to unwrap</h4>
+      <p>She has to click it. Obviously.</p>
+      <div id="secretMessage">You deserve all the beautiful things this life has to offer. Happy birthday, [HER NAME]. ❤️</div>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="final-inner reveal">
+    <div class="eyebrow">For the birthday girl</div>
+    <h3>Today is<br><span>all about you.</span></h3>
+    <p>Happy birthday, [HER NAME]. May this year be softer, brighter, happier and full of moments you'll want to remember forever.</p>
+    <a class="cta" href="#top">Read it again <span class="arrow">↑</span></a>
+  </div>
+</section>
+
+<!-- SMALL SELLER WATERMARK: intentionally subtle -->
+<div class="custom-note">
+  Want a birthday website made completely around your story? ·
+  <a href="https://instagram.com/YOUR_HANDLE" target="_blank" rel="noopener">Get a custom design</a>
+</div>
+<footer>made with love · a little birthday corner of the internet ♡</footer>
+</main>
+</div>
+
+<script>
+/*
+  QUICK PERSONALIZATION
+  Replace [HER NAME], [YOUR NAME], [DATE] and the text in the HTML.
+  For selling: duplicate this file for each order and customize the content.
+*/
+
+const intro=document.getElementById("intro");
+const site=document.getElementById("site");
+
+document.getElementById("open").addEventListener("click",()=>{
+  intro.classList.add("exit");
+  setTimeout(()=>{
+    intro.remove();
+    site.classList.add("ready");
+    burst();
+  },650);
+});
+
+const revealObserver=new IntersectionObserver(entries=>{
+  entries.forEach((entry,index)=>{
+    if(entry.isIntersecting){
+      entry.target.style.transitionDelay=Math.min(index*45,240)+"ms";
+      entry.target.classList.add("show");
+      revealObserver.unobserve(entry.target);
+    }
+  });
+},{threshold:.12});
+document.querySelectorAll(".reveal").forEach(el=>revealObserver.observe(el));
+
+document.getElementById("gift").addEventListener("click",()=>{
+  const gift=document.getElementById("gift");
+  gift.classList.toggle("revealed");
+  if(gift.classList.contains("revealed")) burst();
+});
+
+function heart(){
+  const e=document.createElement("div");
+  e.className="heart";
+  e.textContent=["❤️","💗","💖","💕","✨","🌸"][Math.floor(Math.random()*6)];
+  e.style.left=Math.random()*100+"vw";
+  e.style.bottom="-30px";
+  e.style.fontSize=(15+Math.random()*25)+"px";
+  e.style.setProperty("--x",(Math.random()*180-90)+"px");
+  document.body.appendChild(e);
+  setTimeout(()=>e.remove(),3600);
+}
+function burst(){for(let i=0;i<28;i++)setTimeout(heart,i*65)}
+
+document.querySelector(".menu").addEventListener("click",()=>{
+  const links=document.querySelector(".links");
+  const open=links.dataset.open==="1";
+  links.dataset.open=open?"0":"1";
+  links.style.display=open?"none":"flex";
+  if(!open){
+    links.style.position="absolute";links.style.top="55px";links.style.right="0";
+    links.style.flexDirection="column";links.style.background="#0d090df5";
+    links.style.padding="9px";links.style.border="1px solid #ffffff14";links.style.borderRadius="18px";
+  }
+});
+</script>
+</body>
+</html>
