@@ -260,68 +260,111 @@ footer{background:#321c2b;color:#725766;text-align:center;padding:18px;font-size
 const intro = document.getElementById("intro");
 const site = document.getElementById("site");
 const music = document.getElementById("bgMusic");
+const openButton = document.getElementById("open");
 
-/* Open the website */
+
+/* =========================
+   OPEN WEBSITE
+========================= */
+
+openButton.addEventListener("click", openSite);
+
 function openSite() {
-  music.volume = 0.4;
 
-  music.play().catch(() => {
-    // Browser may block autoplay until user interaction
-  });
+  /* Start background music */
+  if (music) {
+    music.volume = 0.4;
 
-  intro.style.transition = "opacity .7s ease";
+    music.play().catch((error) => {
+      console.log("Music playback failed:", error);
+    });
+  }
+
+  /* Fade out intro */
+  intro.style.transition = "opacity 0.7s ease";
   intro.style.opacity = "0";
 
+  /* Reveal website */
   setTimeout(() => {
+
     intro.remove();
+
     site.classList.remove("hidden");
     site.classList.add("ready");
+
     burst();
+
   }, 700);
 }
 
 
-/* Scroll reveal */
-const revealObserver = new IntersectionObserver(entries => {
-  entries.forEach((entry, index) => {
-    if (entry.isIntersecting) {
-      entry.target.style.transitionDelay =
-        Math.min(index * 45, 240) + "ms";
+/* =========================
+   SCROLL REVEAL
+========================= */
 
-      entry.target.classList.add("show");
-      revealObserver.unobserve(entry.target);
-    }
-  });
-}, {
-  threshold: 0.12
-});
+const revealObserver = new IntersectionObserver(
+  (entries) => {
+
+    entries.forEach((entry, index) => {
+
+      if (entry.isIntersecting) {
+
+        entry.target.style.transitionDelay =
+          Math.min(index * 45, 240) + "ms";
+
+        entry.target.classList.add("show");
+
+        revealObserver.unobserve(entry.target);
+      }
+
+    });
+
+  },
+  {
+    threshold: 0.12
+  }
+);
+
 
 document
   .querySelectorAll(".reveal")
-  .forEach(el => revealObserver.observe(el));
+  .forEach((element) => {
+    revealObserver.observe(element);
+  });
 
 
-/* Gift interaction */
+/* =========================
+   GIFT / SURPRISE
+========================= */
+
 const gift = document.getElementById("gift");
 
 if (gift) {
+
   gift.addEventListener("click", () => {
+
     gift.classList.toggle("revealed");
 
     if (gift.classList.contains("revealed")) {
       burst();
     }
+
   });
+
 }
 
 
-/* Floating hearts */
+/* =========================
+   FLOATING HEART
+========================= */
+
 function heart() {
-  const e = document.createElement("div");
 
-  e.className = "heart";
+  const element = document.createElement("div");
 
-  e.textContent = [
+  element.className = "heart";
+
+  element.textContent = [
     "❤️",
     "💗",
     "💖",
@@ -330,52 +373,84 @@ function heart() {
     "🌸"
   ][Math.floor(Math.random() * 6)];
 
-  e.style.left = Math.random() * 100 + "vw";
-  e.style.bottom = "-30px";
-  e.style.fontSize = (15 + Math.random() * 25) + "px";
+  element.style.left =
+    Math.random() * 100 + "vw";
 
-  e.style.setProperty(
+  element.style.bottom = "-30px";
+
+  element.style.fontSize =
+    15 + Math.random() * 25 + "px";
+
+  element.style.setProperty(
     "--x",
-    (Math.random() * 180 - 90) + "px"
+    Math.random() * 180 - 90 + "px"
   );
 
-  document.body.appendChild(e);
+  document.body.appendChild(element);
 
-  setTimeout(() => e.remove(), 3600);
+  setTimeout(() => {
+    element.remove();
+  }, 3600);
 }
 
 
-/* Heart burst */
+/* =========================
+   HEART BURST
+========================= */
+
 function burst() {
+
   for (let i = 0; i < 28; i++) {
-    setTimeout(heart, i * 65);
+
+    setTimeout(() => {
+      heart();
+    }, i * 65);
+
   }
+
 }
 
 
-/* Mobile menu */
+/* =========================
+   MOBILE MENU
+========================= */
+
 const menu = document.querySelector(".menu");
 const links = document.querySelector(".links");
 
 if (menu && links) {
+
   menu.addEventListener("click", () => {
 
     const isOpen = links.dataset.open === "1";
 
     links.dataset.open = isOpen ? "0" : "1";
-    links.style.display = isOpen ? "none" : "flex";
+
+    links.style.display =
+      isOpen ? "none" : "flex";
+
 
     if (!isOpen) {
+
       links.style.position = "absolute";
       links.style.top = "55px";
       links.style.right = "0";
+
       links.style.flexDirection = "column";
+
       links.style.background = "#0d090df5";
+
       links.style.padding = "9px";
-      links.style.border = "1px solid #ffffff14";
+
+      links.style.border =
+        "1px solid #ffffff14";
+
       links.style.borderRadius = "18px";
+
     }
+
   });
+
 }
 </script>
 </body>
