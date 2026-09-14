@@ -257,79 +257,126 @@ footer{background:#321c2b;color:#725766;text-align:center;padding:18px;font-size
 </div>
 
 <script>
-  function openSite(){
-    const music = document.getElementById("bgMusic");
+const intro = document.getElementById("intro");
+const site = document.getElementById("site");
+const music = document.getElementById("bgMusic");
 
-    music.volume = 0.4;
-    music.play();
+/* Open the website */
+function openSite() {
+  music.volume = 0.4;
 
-    document.getElementById("intro").style.opacity="0";
-    document.getElementById("intro").style.transition="opacity .7s ease";
+  music.play().catch(() => {
+    // Browser may block autoplay until user interaction
+  });
 
-    setTimeout(()=>{
-        document.getElementById("intro").remove();
-        document.getElementById("site").classList.remove("hidden");
-        burst();
-    },700);
-/*
-  QUICK PERSONALIZATION
-  Replace [HER NAME], [YOUR NAME], [DATE] and the text in the HTML.
-  For selling: duplicate this file for each order and customize the content.
-*/
+  intro.style.transition = "opacity .7s ease";
+  intro.style.opacity = "0";
 
-const intro=document.getElementById("intro");
-const site=document.getElementById("site");
-
-document.getElementById("open").addEventListener("click",()=>{
-  intro.classList.add("exit");
-  setTimeout(()=>{
+  setTimeout(() => {
     intro.remove();
+    site.classList.remove("hidden");
     site.classList.add("ready");
     burst();
-  },650);
-});
+  }, 700);
+}
 
-const revealObserver=new IntersectionObserver(entries=>{
-  entries.forEach((entry,index)=>{
-    if(entry.isIntersecting){
-      entry.target.style.transitionDelay=Math.min(index*45,240)+"ms";
+
+/* Scroll reveal */
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach((entry, index) => {
+    if (entry.isIntersecting) {
+      entry.target.style.transitionDelay =
+        Math.min(index * 45, 240) + "ms";
+
       entry.target.classList.add("show");
       revealObserver.unobserve(entry.target);
     }
   });
-},{threshold:.12});
-document.querySelectorAll(".reveal").forEach(el=>revealObserver.observe(el));
-
-document.getElementById("gift").addEventListener("click",()=>{
-  const gift=document.getElementById("gift");
-  gift.classList.toggle("revealed");
-  if(gift.classList.contains("revealed")) burst();
+}, {
+  threshold: 0.12
 });
 
-function heart(){
-  const e=document.createElement("div");
-  e.className="heart";
-  e.textContent=["❤️","💗","💖","💕","✨","🌸"][Math.floor(Math.random()*6)];
-  e.style.left=Math.random()*100+"vw";
-  e.style.bottom="-30px";
-  e.style.fontSize=(15+Math.random()*25)+"px";
-  e.style.setProperty("--x",(Math.random()*180-90)+"px");
-  document.body.appendChild(e);
-  setTimeout(()=>e.remove(),3600);
+document
+  .querySelectorAll(".reveal")
+  .forEach(el => revealObserver.observe(el));
+
+
+/* Gift interaction */
+const gift = document.getElementById("gift");
+
+if (gift) {
+  gift.addEventListener("click", () => {
+    gift.classList.toggle("revealed");
+
+    if (gift.classList.contains("revealed")) {
+      burst();
+    }
+  });
 }
-function burst(){for(let i=0;i<28;i++)setTimeout(heart,i*65)}
 
-document.querySelector(".menu").addEventListener("click",()=>{
-  const links=document.querySelector(".links");
-  const open=links.dataset.open==="1";
-  links.dataset.open=open?"0":"1";
-  links.style.display=open?"none":"flex";
-  if(!open){
-    links.style.position="absolute";links.style.top="55px";links.style.right="0";
-    links.style.flexDirection="column";links.style.background="#0d090df5";
-    links.style.padding="9px";links.style.border="1px solid #ffffff14";links.style.borderRadius="18px";
+
+/* Floating hearts */
+function heart() {
+  const e = document.createElement("div");
+
+  e.className = "heart";
+
+  e.textContent = [
+    "❤️",
+    "💗",
+    "💖",
+    "💕",
+    "✨",
+    "🌸"
+  ][Math.floor(Math.random() * 6)];
+
+  e.style.left = Math.random() * 100 + "vw";
+  e.style.bottom = "-30px";
+  e.style.fontSize = (15 + Math.random() * 25) + "px";
+
+  e.style.setProperty(
+    "--x",
+    (Math.random() * 180 - 90) + "px"
+  );
+
+  document.body.appendChild(e);
+
+  setTimeout(() => e.remove(), 3600);
+}
+
+
+/* Heart burst */
+function burst() {
+  for (let i = 0; i < 28; i++) {
+    setTimeout(heart, i * 65);
   }
-});
+}
+
+
+/* Mobile menu */
+const menu = document.querySelector(".menu");
+const links = document.querySelector(".links");
+
+if (menu && links) {
+  menu.addEventListener("click", () => {
+
+    const isOpen = links.dataset.open === "1";
+
+    links.dataset.open = isOpen ? "0" : "1";
+    links.style.display = isOpen ? "none" : "flex";
+
+    if (!isOpen) {
+      links.style.position = "absolute";
+      links.style.top = "55px";
+      links.style.right = "0";
+      links.style.flexDirection = "column";
+      links.style.background = "#0d090df5";
+      links.style.padding = "9px";
+      links.style.border = "1px solid #ffffff14";
+      links.style.borderRadius = "18px";
+    }
+  });
+}
 </script>
 </body>
 </html>
