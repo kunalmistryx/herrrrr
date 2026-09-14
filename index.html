@@ -257,6 +257,20 @@ footer{background:#321c2b;color:#725766;text-align:center;padding:18px;font-size
 </div>
 
 <script>
+  function openSite(){
+    const music = document.getElementById("bgMusic");
+
+    music.volume = 0.4;
+    music.play();
+
+    document.getElementById("intro").style.opacity="0";
+    document.getElementById("intro").style.transition="opacity .7s ease";
+
+    setTimeout(()=>{
+        document.getElementById("intro").remove();
+        document.getElementById("site").classList.remove("hidden");
+        burst();
+    },700);
 /*
   QUICK PERSONALIZATION
   Replace [HER NAME], [YOUR NAME], [DATE] and the text in the HTML.
